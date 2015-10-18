@@ -4,9 +4,19 @@ var ipc = require('ipc');
 var fs = require('fs');
 
 var filename = __dirname + '/notes.json';
-fs.readFile(filename, function(err, data) {
-	if (err) throw err;
-	notes = JSON.parse(data);
+
+fs.stat(filename, function(err, stat) {
+	if (err == null) {
+		fs.readFile(filename, function(err, data) {
+			if (err) throw err;
+			notes = JSON.parse(data);
+		});
+	}
+	else {
+		fs.writeFile(filename, "[]", function(err) {
+			if (err) console.log(err);
+		});
+	}
 });
 
 var notes = [];
@@ -17,7 +27,6 @@ var notesWindow = null;
 var quizWindow = null;
 
 var write = function() {
-	var filename = __dirname + '/notes.json';
 	fs.writeFile(filename, JSON.stringify(notes), function(err) {
 		if (err) throw err;
 	});
@@ -90,10 +99,10 @@ ipc.on('remove-clue', function(evt, arg) {
 
 app.on('ready', function() {
 	notesWindow = new BrowserWindow({width: 1000, height: 600});
-	notesWindow.loadUrl('file://' + __dirname + '/notes.html');
+	notesWindow.loadUrl('file://' + __dirname + '/views/notes.html');
 
 	quizWindow = new BrowserWindow({width: 1000, height: 600});
-	quizWindow.loadUrl('file://' + __dirname + '/quiz.html');
+	quizWindow.loadUrl('file://' + __dirname + '/views/quiz.html');
 
 	notesWindow.on('closed', function() {
 		notesWindow = null;
