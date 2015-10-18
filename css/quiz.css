@@ -1,0 +1,51 @@
+body {
+	font-family: Helvetica, Arial, sans-serif;
+	text-align: center;
+}
+#qbox {
+	background-color: #cacaca;
+	width: 500px;
+	height: 300px;
+	margin: 50px auto;
+}
+#question {
+	width: 500px;
+	height: 180px;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+#question p {
+	width: 450px;
+	text-align: center;
+	font-weight: 600;
+	font-size: 30px;
+}
+
+#answer {
+	width: 500px;
+	height: 80px;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+#answer input {
+	font-size: 20px;
+	width: 400px;
+	text-align: center;
+}
+#feedback {
+	width: 500px;
+	height: 40px;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+#feedback p {
+	width: 500px;
+	text-align: center;
+	font-weight: 600;
+}
