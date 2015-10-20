@@ -109,9 +109,9 @@ $("#search-box").keyup(function() {
 	}
 });
 
-$("#quiz-button").click(function() {
-	ipc.send('quiz');
-});
+$("#take-quiz").click(function() {
+	ipc.send('start-quiz');
+})
 
 document.onkeydown = function(evt) {
 	if (!evt) evt = event;

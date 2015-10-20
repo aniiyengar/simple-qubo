@@ -97,12 +97,14 @@ ipc.on('remove-clue', function(evt, arg) {
 	evt.sender.send('notes-clean', notes);
 });
 
+ipc.on('start-quiz', function(evt, arg) {
+	quizWindow = new BrowserWindow({width: 1000, height: 600});
+	quizWindow.loadUrl('file://' + __dirname + '/views/quiz.html');
+});
+
 app.on('ready', function() {
 	notesWindow = new BrowserWindow({width: 1000, height: 600});
 	notesWindow.loadUrl('file://' + __dirname + '/views/notes.html');
-
-	quizWindow = new BrowserWindow({width: 1000, height: 600});
-	quizWindow.loadUrl('file://' + __dirname + '/views/quiz.html');
 
 	notesWindow.on('closed', function() {
 		notesWindow = null;

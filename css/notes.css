@@ -162,4 +162,17 @@ div.x:hover {
 	-webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
 }
 
+#take-quiz {
+	width: 100%;
+	position: absolute;
+	background-color: #0074ea;
+	text-align: center;
+	padding: 20px;
+	color: white;
+	bottom: 0;
+	margin-left: -20px;
+	font-size: 25px;
+	cursor: pointer;
+}
+
 
