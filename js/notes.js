@@ -9,13 +9,14 @@ var resizeElements = function() {
 	$("#main-container").width($(window).width() - 400);
 	$("#main").height($(window).height() - ($("#search-bar").height() + 40));
 	$(".note-right").width($("#main").width() - 248);
-}
+};
 
 var load = function() {
 	$("#main").html("");
 	for (var i = 0; i < notes.length; i++) {
 		var element = $("<div class='note'></div>").attr('data-id', notes[i].id);
-		$(element).append($("<div class='note-left'></div>").text(notes[i].answer).append($("<div class='x'></div>")));
+		$(element).append($("<div class='note-left'></div>")
+			.text(notes[i].answer).append($("<div class='x'></div>")));
 		var clues = notes[i].clues.split('\n');
 		var noteRight = $("<div class='note-right'></div>");
 		var noteList = $("<ul class='note-list'></ul>").attr('data-id', notes[i].id);
@@ -60,7 +61,7 @@ var load = function() {
 	});
 
 	resizeElements();
-}
+};
 
 $(window).resize(resizeElements);
 resizeElements();
@@ -111,7 +112,7 @@ $("#search-box").keyup(function() {
 
 $("#take-quiz").click(function() {
 	ipc.send('start-quiz');
-})
+});
 
 document.onkeydown = function(evt) {
 	if (!evt) evt = event;
@@ -130,7 +131,7 @@ document.onkeydown = function(evt) {
 		}
 	}
 
-}
+};
 
 
 
