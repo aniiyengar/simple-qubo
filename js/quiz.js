@@ -66,10 +66,16 @@ var populate = function() {
 
 	if (table.size() == 0) {
 		game = false;
-		$("#question p.q").html("Done! You got:<br/>" + numRight + "/" + (numRight+numWrong) + ", or " + Math.floor((numRight+0.0)/(numRight+numWrong)*100) + "%<br/>Click <b>Start</b> to go again.");
+		var total = numRight + numWrong;
+		var percentage = Math.floor((numRight+0.0)/(numRight+numWrong)*100);
+		$("#question p.q").html("Done! You got:<br/>" + numRight + "/" + total
+			+ ", or " + percentage + "%<br/>Click <b>Start</b> to go again.");
 		$("#ans").val("").attr("disabled", "disabled");
 		$("#submit").text("#Start");
-		$("#quiz-right").html('<p id="label-question">Question #: </p><p id="label-correct">Correct #: </p><p id="label-incorrect">Incorrect #: </p><p id="label-percentage">Percentage: </p>');
+		$("#label-question").text("Question #: ");
+		$("#label-correct").text("Correct #: ");
+		$("#label-incorrect").text("Incorrect #: ");
+		$("#label-percentage").text("Percentage: ");
 	}
 	else {
 		currPos = Math.floor((Math.random() * table.size()));
@@ -103,10 +109,12 @@ var verify = function() {
 		});
 	}
 
+	var percentage = Math.floor((numRight+0.0)/(numRight+numWrong)*100);
+
 	$("#label-question").text("Question #: " + (numWrong+numRight));
 	$("#label-correct").text("Correct #: " + (0+numRight));
 	$("#label-incorrect").text("Incorrect #: " + (numWrong+0));
-	$("#label-percentage").text("Percentage: " + Math.floor((numRight+0.0)/(numRight+numWrong)*100) + "%");
+	$("#label-percentage").text("Percentage: " + percentage + "%");
 
 	populate();
 
@@ -129,3 +137,4 @@ document.onkeydown = function(evt) {
 		verify();
 	}
 };
+
