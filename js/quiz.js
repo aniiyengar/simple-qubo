@@ -3,7 +3,7 @@ var list = [];
 
 var resizeElements = function() {
 	$("#quiz").css("top", $(window).height()/2 - 150 + "px");
-}
+};
 
 var game = false, done, currQ, currA, numRight, numWrong, currPos, table;
 
@@ -32,7 +32,7 @@ var AssocTable = function(keyvals) {
 	this.size = function() {
 		return Object.keys(this.keyValueStore()).length;
 	}
-}
+};
 
 
 ipc.on('notes-clean', function(arg) {
@@ -50,7 +50,6 @@ ipc.on('notes-clean', function(arg) {
 	$("#submit").text("Submit");
 	$("#ans").removeAttr("disabled").focus();
 	game = true;
-	done = false;
 	currQ = "";
 	currA = "";
 	numRight = 0;
@@ -67,8 +66,10 @@ var populate = function() {
 
 	if (table.size() == 0) {
 		game = false;
-		$("#question p.q").html("Done! You got:<br/>" + numRight + "/" + (numRight+numWrong) + ", or " + Math.floor((numRight+0.0)/(numRight+numWrong)*100) + "%<br/>Refresh to go again.");
-		$("#ans").val("");
+		$("#question p.q").html("Done! You got:<br/>" + numRight + "/" + (numRight+numWrong) + ", or " + Math.floor((numRight+0.0)/(numRight+numWrong)*100) + "%<br/>Click <b>Start</b> to go again.");
+		$("#ans").val("").attr("disabled", "disabled");
+		$("#submit").text("#Start");
+		$("#quiz-right").html('<p id="label-question">Question #: </p><p id="label-correct">Correct #: </p><p id="label-incorrect">Incorrect #: </p><p id="label-percentage">Percentage: </p>');
 	}
 	else {
 		currPos = Math.floor((Math.random() * table.size()));
@@ -80,7 +81,7 @@ var populate = function() {
 
 	$("#ans").focus();
 
-}
+};
 
 var verify = function() {
 	var str = $("#ans").val();
@@ -109,7 +110,7 @@ var verify = function() {
 
 	populate();
 
-}
+};
 
 $("#submit").click(function() {
 	console.log(game);
@@ -127,4 +128,4 @@ document.onkeydown = function(evt) {
 		console.log(game);
 		verify();
 	}
-}
+};
