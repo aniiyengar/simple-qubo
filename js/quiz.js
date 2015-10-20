@@ -45,6 +45,7 @@ ipc.on('notes-clean', function(arg) {
 			l.push(note.answer);
 		}
 	}
+	console.log(l.length);
 	list = l;
 	game = true;
 	$("#submit").text("Submit");

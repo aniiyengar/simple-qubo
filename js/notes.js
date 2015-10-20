@@ -67,7 +67,7 @@ $(window).resize(resizeElements);
 resizeElements();
 
 var submit = function() {
-	var answer = $.trim($("#answer").val());
+	var answer = $.trim($("#answer").focus().val());
 	var clues = $.trim($("#clues").val());
 	$("#answer, #clues").val("");
 	ipc.send('note', {
