@@ -37,6 +37,11 @@ p.tiny {
 	overflow: auto;
 }
 
+.add-file-table {
+	width: 100%;
+	overflow: auto;
+}
+
 .add-clue-table-row {
 	width: 100%;
 	overflow: auto;
@@ -160,6 +165,10 @@ div.x:hover {
 	border-radius: 4px;
 	background-color: rgba(0,0,0,.5);
 	-webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
+}
+
+#files-list {
+	width: 100%;
 }
 
 #take-quiz {

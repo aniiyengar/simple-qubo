@@ -1,7 +1,9 @@
-var ipc = require('ipc');
+var ipc = require("ipc");
 var notes = [];
+var files = [];
+var currFile = '';
 
-ipc.send('note', 'get');
+ipc.send('files');
 
 var w = $("#sidebar").width() + 2 * 30;
 
@@ -10,6 +12,18 @@ var resizeElements = function() {
 	$("#main").height($(window).height() - ($("#search-bar").height() + 40));
 	$(".note-right").width($("#main").width() - 248);
 };
+
+var loadFiles = function() {
+	$("#files-list").html("");
+	for (var i = 0; i < files.length; i++) {
+		var e1 = $("<option></option>").attr("data-file", "notes-" + files[i] + ".json");
+		$(e1).text(files[i]);
+		$("#files-list").append(e1);
+	}
+	ipc.send('file', {
+		file: $("#files-list").val()
+	});
+}
 
 var load = function() {
 	$("#main").html("");
@@ -78,9 +92,31 @@ var submit = function() {
 
 $("#submit").click(submit);
 
+ipc.on('files-list', function(arg) {
+	files = arg;
+	loadFiles();
+});
+
 ipc.on('notes-clean', function(arg) {
 	notes = arg;
 	load();
+});
+
+ipc.on('file-loaded', function(arg) {
+	$("#filename").val(arg.filename);
+	notes = arg.notes;
+	load();
+})
+
+$("#files-list").change(function() {
+	ipc.send('file', {
+		file: $(this).val()
+	});
+});
+
+$("#filename").change(function() {
+	currFile = $(this).val();
+	ipc.send('rename', $(this).val());
 });
 
 $("#search-box").keyup(function() {

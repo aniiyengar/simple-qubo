@@ -50,7 +50,6 @@ ipc.on('notes-clean', function(arg) {
 	game = true;
 	$("#submit").text("Submit");
 	$("#ans").removeAttr("disabled").focus();
-	game = true;
 	currQ = "";
 	currA = "";
 	numRight = 0;
@@ -72,7 +71,7 @@ var populate = function() {
 		$("#question p.q").html("Done! You got:<br/>" + numRight + "/" + total
 			+ ", or " + percentage + "%<br/>Click <b>Start</b> to go again.");
 		$("#ans").val("").attr("disabled", "disabled");
-		$("#submit").text("#Start");
+		$("#submit").text("Start");
 		$("#label-question").text("Question #: ");
 		$("#label-correct").text("Correct #: ");
 		$("#label-incorrect").text("Incorrect #: ");
@@ -92,17 +91,24 @@ var populate = function() {
 
 var verify = function() {
 	var str = $("#ans").val();
+	var answers = currA.split(";");
 
-	if (jaroWinkler(str, currA) > 0.85) {
-		// Answer is correct
-		numRight++;
-		$("#feedback p").text("Correct! The correct answer was " + currA);
-		$("#feedback p").css({
-			"color" : "green"
-		});
-		table.removeItem(currPos);
+	var correct = false;
+	for (var i = 0; i < answers.length; i++) {
+		answers[i] = $.trim(answers[i]);
+		if (jaroWinkler(str, answers[i]) > 0.85) {
+			correct = true;
+			numRight++;
+			$("#feedback p").text("Correct! The correct answer was " + currA);
+			$("#feedback p").css({
+				"color" : "green"
+			});
+			table.removeItem(currPos);
+			break;
+		}
 	}
-	else {
+
+	if (!correct) {
 		numWrong++;
 		$("#feedback p").text("Incorrect! The correct answer was " + currA);
 		$("#feedback p").css({
