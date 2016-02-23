@@ -5,6 +5,10 @@ var currFile = '';
 
 ipc.send('files');
 
+ipc.on('files-trigger', function(arg) {
+	ipc.send('files');
+});
+
 var w = $("#sidebar").width() + 2 * 30;
 
 var resizeElements = function() {
@@ -20,9 +24,14 @@ var loadFiles = function() {
 		$(e1).text(files[i]);
 		$("#files-list").append(e1);
 	}
-	ipc.send('file', {
-		file: $("#files-list").val()
-	});
+	if (currFile != null) {
+		currFile = files[0];
+	}
+	$("#files-list").val(currFile);
+	$("#filename").val(currFile);
+	// ipc.send('file', {
+	// 	file: currFile
+	// });
 }
 
 var load = function() {
@@ -71,7 +80,6 @@ var load = function() {
 	$(".note-left").dblclick(function() {
 		$("#answer").val($(this).text());
 		$("#clues").focus();
-		console.log("FSDF");
 	});
 
 	resizeElements();
@@ -103,12 +111,15 @@ ipc.on('notes-clean', function(arg) {
 });
 
 ipc.on('file-loaded', function(arg) {
+	currFile = arg.filename;
 	$("#filename").val(arg.filename);
+	$("#files-list").val(arg.filename);
 	notes = arg.notes;
 	load();
-})
+});
 
 $("#files-list").change(function() {
+	currFile = $(this).val();
 	ipc.send('file', {
 		file: $(this).val()
 	});
@@ -126,13 +137,11 @@ $("#search-box").keyup(function() {
 			var el = $(list[i]);
 			var t = $(el).children(".note-left").text();
 			var clues = $(el).children('.note-right').children(".note-list").children("li");
-			console.log(clues);
 			for (var j = 0; j < clues.length; j++) {
 				t = t + " " + $(clues[j]).text();
 			}
 			t = t.toLowerCase();
 			var term = $(this).val().trim().toLowerCase();
-			console.log(t);
 			if (t.indexOf(term) > -1) {
 				$(el).show();
 			}
@@ -148,6 +157,10 @@ $("#search-box").keyup(function() {
 
 $("#take-quiz").click(function() {
 	ipc.send('start-quiz');
+});
+
+$("#newfile").click(function() {
+	ipc.send('new-file');
 });
 
 document.onkeydown = function(evt) {

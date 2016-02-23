@@ -15,9 +15,7 @@ var notesWindow = null;
 var quizWindow = null;
 
 var write = function() {
-	fs.writeFile(notesDir + currFile + '.json', JSON.stringify(notes), function(err) {
-		if (err) throw err;
-	});
+	fs.writeFileSync(notesDir + currFile + '.json', JSON.stringify(notes));
 }
 
 var process = function(note) {
@@ -41,19 +39,15 @@ var process = function(note) {
 
 }
 
-var loadFile = function(file, sender) {
-	if (file != "New File") {
-		currFile = file;
-		var text = fs.readFileSync(notesDir + currFile + '.json');
-		notes = JSON.parse(text);
-		sender.send('file-loaded', {
-			filename: currFile,
-			notes: notes
-		});
-	}
-	else {
-
-	}
+var loadFile = function(fname, sender) {
+	currFile = fname;
+	console.log(currFile);
+	var text = fs.readFileSync(notesDir + fname + '.json');
+	notes = JSON.parse(text);
+	sender.send('file-loaded', {
+		filename: fname,
+		notes: notes
+	});
 }
 
 app.on('window-all-closed', function() {
@@ -64,13 +58,6 @@ ipc.on('files', function(evt, arg) {
 	fs.readdir(notesDir, function(err, f) {
 		if (err) throw err;
 		files = [];
-
-		if (files.length == 0) {
-			currFile = 'notes';
-			fs.writeFile(notesDir + 'notes.json', "[]", function(err) {
-				if (err) console.log(err);
-			});
-		}
 
 		for (var k = 0; k < f.length; k++) {
 			if (f[k] == '.DS_Store') continue;
@@ -87,9 +74,24 @@ ipc.on('files', function(evt, arg) {
 
 ipc.on('rename', function(evt, arg) {
 	fs.renameSync(notesDir + currFile + '.json', notesDir + arg + '.json');
-	files[files.indexOf(currFile)] = arg;
-	evt.sender.send('files-list', files);
 	currFile = arg;
+
+	fs.readdir(notesDir, function(err, f) {
+		if (err) throw err;
+		files = [];
+
+		for (var k = 0; k < f.length; k++) {
+			if (f[k] == '.DS_Store') continue;
+			else {
+				var fn = f[k];
+				files.push(fn.slice(0, -5));
+			}
+		}
+
+		evt.sender.send('files-list', files);
+		loadFile(currFile, evt.sender);
+
+	});
 });
 
 ipc.on('file', function(evt, arg) {
@@ -139,6 +141,28 @@ ipc.on('remove-clue', function(evt, arg) {
 ipc.on('start-quiz', function(evt, arg) {
 	quizWindow = new BrowserWindow({width: 1000, height: 600});
 	quizWindow.loadURL('file://' + __dirname + '/views/quiz.html');
+});
+
+ipc.on('new-file', function(evt, arg) {
+	currFile = 'Untitled-' + Math.floor(new Date());
+	fs.writeFileSync(notesDir + currFile + '.json', '[]');
+
+	fs.readdir(notesDir, function(err, f) {
+		if (err) throw err;
+		files = [];
+
+		for (var k = 0; k < f.length; k++) {
+			if (f[k] == '.DS_Store') continue;
+			else {
+				var fn = f[k];
+				files.push(fn.slice(0, -5));
+			}
+		}
+
+		evt.sender.send('files-list', files);
+		loadFile(currFile, evt.sender);
+
+	});
 });
 
 app.on('ready', function() {
