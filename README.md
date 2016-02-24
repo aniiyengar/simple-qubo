@@ -5,6 +5,6 @@ App based on Electron (Atom Shell) http://electron.atom.io/
 
 TO USE:
 ```
-git clone https://github.com/aniiyengar/simple-qubo.git
-electron simple-qubo
+$ git clone https://github.com/aniiyengar/simple-qubo.git
+$ electron simple-qubo
 ```
