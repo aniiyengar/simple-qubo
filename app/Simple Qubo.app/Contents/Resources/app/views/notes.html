@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Notes</title>
+		<script>
+			window.$ = window.jQuery = require('../js/jquery.min.js');
+		</script>
+		<script src="../js/bootstrap.js"></script>
+
+		<link rel="stylesheet" href="../css/notes.css" />
+		<link rel="stylesheet" href="../css/bootstrap.css" />
+	</head>
+	<body>
+		<div id="sidebar">
+
+			<p class="small bold">Add Note</p>
+			<div id="add-clue-table">
+				<div class="add-clue-table-row">
+					<div class="add-clue-table-cell-left">
+						<p class="small">Answer:</p>
+					</div>
+					<div class="add-clue-table-cell-right">
+						<input id="answer" type="text" class="form-control" tabindex="1" />
+					</div>
+				</div>
+				<div class="add-clue-table-row">
+					<div class="add-clue-table-cell-left">
+						<p class="small">Clues:</p>
+					</div>
+					<div class="add-clue-table-cell-right">
+						<textarea id="clues" class="form-control" rows="4" tabindex="2"></textarea>
+						<p class="tiny">(Separate clues with <b>Enter</b>)</p>
+					</div>
+				</div>
+			</div>
+
+			<button id="submit" class="btn btn-primary" tabindex="-1">Submit</button>
+
+			<hr style="border-color:#444;"/>
+
+			<p class="small bold">File</p>
+			<div id="add-file-table">
+				<div class="add-clue-table-row">
+					<div class="add-clue-table-cell-left">
+						<p class="small">File:</p>
+					</div>
+					<div class="add-clue-table-cell-right">
+						<select id="files-list">
+
+						</select>
+					</div>
+				</div>
+				<div class="add-clue-table-row">
+					<div class="add-clue-table-cell-left">
+						<p class="small">Name:</p>
+					</div>
+					<div class="add-clue-table-cell-right">
+						<input id="filename" type="text" class="form-control" tabindex="3" />
+					</div>
+				</div>
+			</div>
+
+			<button id="newfile" class="btn btn-primary" tabindex="-1">New File</button>
+
+			<div id="take-quiz">
+				<b>Take Quiz</b>
+			</div>
+
+		</div>
+		<div id="main-container">
+			<div id="search-bar">
+				<div class="form-group has-feedback">
+					<input type="text" class="form-control" id="search-box"/>
+					<span class="glyphicon glyphicon-search form-control-feedback"></span>
+				</div>
+			</div>
+			<div id="main">
+			</div>
+			<div id="quiz">
+			</div>
+		</div>
+	</body>
+	<script src="../js/notes.js"></script>
+</html>
+
+

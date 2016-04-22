@@ -1,0 +1,191 @@
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	max-width: 100%;
+	width: 100vw;
+	max-height: 100%;
+	height: 100vh;
+	overflow: hidden;
+}
+
+p {
+	font-weight: 200;
+}
+
+p.big {
+	font-size: 30px;
+}
+
+p.small {
+	font-size: 17px;
+}
+
+p.bold {
+	font-weight: 600;
+}
+
+p.tiny {
+	font-size: 14px;
+}
+
+.add-clue-table {
+	width: 100%;
+	overflow: auto;
+}
+
+.add-file-table {
+	width: 100%;
+	overflow: auto;
+}
+
+.add-clue-table-row {
+	width: 100%;
+	overflow: auto;
+}
+
+.add-clue-table-cell-left {
+	width: 20%;
+	padding: 10px 10px 0 0;
+	float: left;
+}
+
+.add-clue-table-cell-right {
+	width: 80%;
+	padding:  10px 10px 0 0;
+	float: right;
+}
+
+#submit {
+	margin: 20px 40%;
+}
+
+#newfile {
+	margin: 20px 40%;
+}
+
+#sidebar {
+	width: 400px;
+	height: 100%;
+	position: absolute;
+	left: 0;
+	background-color: #eaeaea;
+
+	padding: 20px;
+}
+
+#sidebar p {
+	-webkit-user-select: none;
+	cursor: default;
+}
+
+#search-bar {
+	width: 100%;
+	padding: 20px;
+	background-color: white;
+	border-bottom: 1px solid #ccc;
+}
+
+#search-bar .form-group {
+	margin-bottom: 0;
+}
+
+#search-box {
+	border-radius: 20px;
+}
+
+#main-container {
+	left: 400px;
+	position: absolute;
+	height: 100%;
+
+}
+
+#main {
+	position: absolute;
+	width: 100%;
+	background-color: white;
+	overflow-y: scroll;
+	overflow-x: hidden;
+}
+
+.note {
+	width: 100%;
+	overflow: auto;
+	border-bottom: 1px solid #ccc;
+	font-size: 16px;
+	font-weight: 200;
+}
+
+.note li {
+	margin-bottom: 4px;
+}
+
+.note-left {
+	width: 200px;
+	font-weight: 600;
+	padding: 20px;
+	float: left;
+	height: 100%;
+	cursor: default;
+	-webkit-user-select: none;
+}
+
+.note-right {
+	padding: 20px;
+	float: right;
+	cursor: default;
+	-webkit-user-select: none;
+}
+
+.note-list {
+	margin-bottom :0;
+}
+
+div.x {
+	width: 10px;
+	height: 10px;
+	display: inline-block;
+	cursor: pointer;
+	background-image: url("../img/x.png");
+	background-size: cover;
+	margin-left: 8px;
+	opacity: 0;
+}
+
+div.x:hover {
+	opacity: 1;
+}
+
+::-webkit-scrollbar {
+	-webkit-appearance: none;
+	position: absolute;
+	width: 8px;
+}
+::-webkit-scrollbar-thumb {
+	border-radius: 4px;
+	background-color: rgba(0,0,0,.5);
+	-webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
+}
+
+#files-list {
+	width: 100%;
+}
+
+#take-quiz {
+	width: 100%;
+	position: absolute;
+	background-color: #0074ea;
+	text-align: center;
+	padding: 20px;
+	color: white;
+	bottom: 0;
+	margin-left: -20px;
+	font-size: 25px;
+	cursor: pointer;
+}
+
+
