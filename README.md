@@ -17,4 +17,3 @@ Alternatively, you can package it into a standalone app using `electron-packager
 ```
 electron-packager ./ Simple\ Qubo --platform=<<Platform>> --arch=<<Arch>>
 ```
-Already included is the standalone app for x64 Darwin (Mac OS X)
