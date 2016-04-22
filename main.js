@@ -60,7 +60,7 @@ ipc.on('files', function(evt, arg) {
 		files = [];
 
 		for (var k = 0; k < f.length; k++) {
-			if (f[k] == '.DS_Store') continue;
+			if (f[k] == '.DS_Store' || f[k] == '.gitignore') continue;
 			else {
 				var fn = f[k];
 				files.push(fn.slice(0, -5));
