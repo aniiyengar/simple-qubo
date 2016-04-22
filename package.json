@@ -1,6 +1,21 @@
-
 {
-	"name": "simple-qubo",
-	"version": "0.1.0",
-	"main": "main.js"
+  "name": "simple-qubo",
+  "version": "1.0.0",
+  "description": "Simple Qubo App",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aniiyengar/simple-qubo"
+  },
+  "author": "Aniruddh Iyengar",
+  "license": "CC0-1.0",
+  "devDependencies": {
+    "electron-prebuilt": "^0.37.0"
+  },
+  "dependencies": {
+    "electron-prebuilt": "^0.37.0"
+  }
 }

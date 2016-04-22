@@ -99,6 +99,7 @@ ipc.on('file', function(evt, arg) {
 });
 
 ipc.on('note', function(evt, arg) {
+	console.log(notes);
 	if (arg.type == 'get') {
 		evt.sender.send('notes-clean', notes);
 	}

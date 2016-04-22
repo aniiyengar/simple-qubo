@@ -130,7 +130,7 @@ var verify = function() {
 $("#submit").click(function() {
 	console.log(game);
 	if (!game) {
-		ipc.send('note', 'get');
+		ipc.send('note', {type:'get'});
 	}
 	else {
 		verify();

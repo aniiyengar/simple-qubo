@@ -29,9 +29,9 @@ var loadFiles = function() {
 	}
 	$("#files-list").val(currFile);
 	$("#filename").val(currFile);
-	// ipc.send('file', {
-	// 	file: currFile
-	// });
+	ipc.send('file', {
+		file: currFile
+	});
 }
 
 var load = function() {
