@@ -24,6 +24,7 @@ var loadFiles = function() {
 		$(e1).text(files[i]);
 		$("#files-list").append(e1);
 	}
+	
 	if (currFile != null) {
 		currFile = files[0];
 	}

@@ -48,6 +48,16 @@ var loadFile = function(fname, sender) {
 		filename: fname,
 		notes: notes
 	});
+};
+
+var loadFileCombined = function(arg, sender) {
+	var fileList = arg.files;
+	var fullNotes = [];
+	for (var i = 0; i < fileList.length; i++) {
+		var t = fs.readFileSync(notesDir + fileList[i] + '.json');
+		fullNotes = fullNotes.concat(JSON.parse(t));
+	}
+	sender.send('notes-clean', fullNotes);
 }
 
 app.on('window-all-closed', function() {
@@ -72,6 +82,12 @@ ipc.on('files', function(evt, arg) {
 	});
 });
 
+ipc.on('note-combined', function(evt, arg) {
+	loadFileCombined({
+		files: arg.files
+	}, evt.sender);
+});
+
 ipc.on('rename', function(evt, arg) {
 	fs.renameSync(notesDir + currFile + '.json', notesDir + arg + '.json');
 	currFile = arg;
@@ -81,7 +97,7 @@ ipc.on('rename', function(evt, arg) {
 		files = [];
 
 		for (var k = 0; k < f.length; k++) {
-			if (f[k] == '.DS_Store') continue;
+			if (f[k] == '.DS_Store' || f[k] == '.gitignore') continue;
 			else {
 				var fn = f[k];
 				files.push(fn.slice(0, -5));
@@ -99,7 +115,6 @@ ipc.on('file', function(evt, arg) {
 });
 
 ipc.on('note', function(evt, arg) {
-	console.log(notes);
 	if (arg.type == 'get') {
 		evt.sender.send('notes-clean', notes);
 	}
@@ -153,7 +168,7 @@ ipc.on('new-file', function(evt, arg) {
 		files = [];
 
 		for (var k = 0; k < f.length; k++) {
-			if (f[k] == '.DS_Store') continue;
+			if (f[k] == '.DS_Store' || f[k] == '.gitignore') continue;
 			else {
 				var fn = f[k];
 				files.push(fn.slice(0, -5));

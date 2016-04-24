@@ -1,8 +1,10 @@
 var ipc = require('ipc');
 var list = [];
+var files = [];
+var selectedFiles = [];
 
 var resizeElements = function() {
-	$("#quiz").css("top", $(window).height()/2 - 150 + "px");
+	$("#quiz-container").css("top", $(window).height()/2 - $("#quiz-container").height()/2 + "px");
 };
 
 var game = false, done, currQ, currA, numRight, numWrong, currPos, table;
@@ -61,6 +63,31 @@ ipc.on('notes-clean', function(arg) {
 
 $(window).resize(resizeElements);
 resizeElements();
+
+ipc.send('files');
+
+ipc.on('files-list', function(arg) {
+	files = arg;
+
+	$("#notes-options").html('<p class="bold">Choose from notes:</p>');
+	for (var i = 0; i < files.length; i++) {
+		var eDiv = $("<div class='note-choice'></div>");
+		var eCheck = $("<input class='note-choice-box' type='checkbox' id='check-" + files[i] + "' name='" + files[i] + "' />");
+		var eLabel = $("<label for='check-" + files[i] + "'>" + files[i] + "</label>");
+		eDiv.append(eCheck).append(eLabel);
+		$("#notes-options").append(eDiv);
+	}
+
+	$(".note-choice-box").change(function() {
+		if ($(this)[0].checked == true) {
+			selectedFiles.push($(this).attr('name'));
+		}
+		else {
+			selectedFiles.splice(selectedFiles.indexOf($(this).attr('name')), 1);
+		}
+		console.log(selectedFiles);
+	});
+});
 
 var populate = function() {
 
@@ -130,7 +157,7 @@ var verify = function() {
 $("#submit").click(function() {
 	console.log(game);
 	if (!game) {
-		ipc.send('note', {type:'get'});
+		ipc.send('note-combined', {type:'get', files:selectedFiles});
 	}
 	else {
 		verify();
