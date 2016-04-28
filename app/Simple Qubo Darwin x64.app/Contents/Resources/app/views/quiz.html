@@ -1,0 +1,50 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Quiz</title>
+		<script>
+			window.$ = window.jQuery = require('../js/jquery.min.js');
+		</script>
+
+		<script src="./js/bootstrap.js"></script>
+
+		<link rel="stylesheet" href="../css/quiz.css" />
+		<link rel="stylesheet" href="../css/bootstrap.css" />
+
+	</head>
+	<body>
+		<div id="quiz-container">
+			<div id="quiz">
+				<div id="quiz-left">
+					<div id="question">
+						<p class="q">Click <b>Start</b></p>
+						<div id="input">
+							<input type="text" id="ans" class="form-control" disabled="disabled" />
+							<button class="btn btn-primary" id="submit">Start</button>
+							<div id="feedback">
+								<p>&nbsp;</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div id="quiz-right">
+					<p id="label-question">Question #: </p>
+					<p id="label-correct">Correct #: </p>
+					<p id="label-incorrect">Incorrect #: </p>
+					<p id="label-percentage">Percentage: </p>
+				</div>
+			</div>
+			<div id="notes-options">
+				<p class="bold">Choose from notes:</p>
+				<div class="note-choice">
+					<input type="checkbox" id="check" />
+					<label for="check">fasdfadf</label>
+				</div>
+			</div>
+		</div>
+
+		<script src="../js/jaro.js"></script>
+		<script src="../js/quiz.js"></script>
+	</body>
+</html>
